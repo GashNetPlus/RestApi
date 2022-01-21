@@ -303,9 +303,8 @@ definitions:
         type: "string"
       boxnumber:
         type: "string"
-      complexID:
-        type: "integer"
-        format: "int32"
+      complexcode:
+        type: "string"
       structure:
         type: "string"
       system:
@@ -314,9 +313,8 @@ definitions:
         type: "array"
         items:
           properties:
-            attributeID:
-              type: "integer"
-              format: "int32"
+            attributecode:
+              type: "string"
             datefrom:
               type: "string"
               format: "datetime"
