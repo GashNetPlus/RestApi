@@ -1,8 +1,8 @@
 swagger: "2.0"
 info:
-  description: "GashNetPlus REST API"
-  version: "1.0.0"
   title: "Swagger GashNetPlus"
+  version: "1.0.0"
+  description: "This is the GashNetPlus REST API. The basepath URL is unique for each customer and access is restricted with a Token authorisation. Every succesfull request will return data in JSON format."
   contact:
     email: "helpdesk@gashnetplus.be"
 basePath: "/v2"
@@ -24,14 +24,17 @@ paths:
         "200":
           description: "successful operation"
           schema:
-            $ref: "#/definitions/Entity"
+            type: "array"
+            items:
+              type: "integer"
+              format: "int32"
       security:
-      - api_key: []
-  /Entity/List/{range}:
+      - bearerAuth: []
+  /Entity/List/{range}/{adres}/{state}/{attributes}:
     get:
       tags:
       - "Entity"
-      summary: "Get entity data in range"
+      summary: "Get entity data in range (restricted to 10 records/request)"
       description: ""
       operationId: "GetEntityListRange"
       consumes:
@@ -41,7 +44,22 @@ paths:
       parameters:
       - name: "range"
         in: "path"
-        description: "range of IDs (example 1-10)"
+        description: "range of IDs (example: 1-10)"
+        required: true
+        type: "string"
+      - name: "adres"
+        in: "path"
+        description: "To request adres data or not (example: 0 or 1)"
+        required: true
+        type: "string"
+      - name: "state"
+        in: "path"
+        description: "To request state data or not (example: 0 or 1)"
+        required: true
+        type: "string"
+      - name: "attributes"
+        in: "path"
+        description: "To request attribute data or not (example: 0 or 1)"
         required: true
         type: "string"
       responses:
@@ -50,8 +68,8 @@ paths:
           schema:
             $ref: "#/definitions/Entity"
       security:
-      - api_key: []
-  /Entity/{ID}:
+      - bearerAuth: []
+  /Entity/{ID}/{adres}/{state}/{attributes}:
     get:
       tags:
       - "Entity"
@@ -69,13 +87,28 @@ paths:
         required: true
         type: "integer"
         format: "int32"
+      - name: "adres"
+        in: "path"
+        description: "To request adres data or not (example: 0 or 1)"
+        required: true
+        type: "string"
+      - name: "state"
+        in: "path"
+        description: "To request state data or not (example: 0 or 1)"
+        required: true
+        type: "string"
+      - name: "attributes"
+        in: "path"
+        description: "To request attribute data or not (example: 0 or 1)"
+        required: true
+        type: "string"
       responses:
         "200":
           description: "successful operation"
           schema:
             $ref: "#/definitions/Entity"
       security:
-      - api_key: []
+      - bearerAuth: []
   /Complex/List/:
     get:
       tags:
@@ -91,14 +124,17 @@ paths:
         "200":
           description: "successful operation"
           schema:
-            $ref: "#/definitions/Complex"
+            type: "array"
+            items:
+              type: "integer"
+              format: "int32"
       security:
-      - api_key: []
-  /Complex/List/{range}:
+      - bearerAuth: []
+  /Complex/List/{range}/{adres}/{entityList}:
     get:
       tags:
       - "Complex"
-      summary: "Get complex data in range"
+      summary: "Get complex data in range (restricted to 10 records/request)"
       description: ""
       operationId: "GetComplexListRange"
       consumes:
@@ -111,14 +147,24 @@ paths:
         description: "range of IDs (example 1-10)"
         required: true
         type: "string"
+      - name: "adres"
+        in: "path"
+        description: "To request adres data or not (example: 0 or 1)"
+        required: true
+        type: "string"
+      - name: "entityList"
+        in: "path"
+        description: "To request entityList data or not (example: 0 or 1)"
+        required: true
+        type: "string"
       responses:
         "200":
           description: "successful operation"
           schema:
             $ref: "#/definitions/Complex"
       security:
-      - api_key: []
-  /Complex/{ID}:
+      - bearerAuth: []
+  /Complex/{ID}/{adres}/{entityList}:
     get:
       tags:
       - "Complex"
@@ -136,13 +182,23 @@ paths:
         required: true
         type: "integer"
         format: "int32"
+      - name: "adres"
+        in: "path"
+        description: "To request adres data or not (example: 0 or 1)"
+        required: true
+        type: "string"
+      - name: "entityList"
+        in: "path"
+        description: "To request entityList data or not (example: 0 or 1)"
+        required: true
+        type: "string"
       responses:
         "200":
           description: "successful operation"
           schema:
             $ref: "#/definitions/Complex"
       security:
-      - api_key: []
+      - bearerAuth: []
   /Group/List/:
     get:
       tags:
@@ -158,10 +214,13 @@ paths:
         "200":
           description: "successful operation"
           schema:
-            $ref: "#/definitions/Group"
+            type: "array"
+            items:
+              type: "integer"
+              format: "int32"
       security:
-      - api_key: []
-  /Group/List/{range}:
+      - bearerAuth: []
+  /Group/List/{range}/{adres}/{entityList}:
     get:
       tags:
       - "Group"
@@ -175,7 +234,17 @@ paths:
       parameters:
       - name: "range"
         in: "path"
-        description: "range of IDs (example 1-10)"
+        description: "range of IDs (example 1-10) (restricted to 10 records/request)"
+        required: true
+        type: "string"
+      - name: "adres"
+        in: "path"
+        description: "To request adres data or not (example: 0 or 1)"
+        required: true
+        type: "string"
+      - name: "entityList"
+        in: "path"
+        description: "To request entityList data or not (example: 0 or 1)"
         required: true
         type: "string"
       responses:
@@ -184,8 +253,8 @@ paths:
           schema:
             $ref: "#/definitions/Group"
       security:
-      - api_key: []
-  /Group/{ID}:
+      - bearerAuth: []
+  /Group/{ID}/{adres}/{entityList}:
     get:
       tags:
       - "Group"
@@ -203,14 +272,24 @@ paths:
         required: true
         type: "integer"
         format: "int32"
+      - name: "adres"
+        in: "path"
+        description: "To request adres data or not (example: 0 or 1)"
+        required: true
+        type: "string"
+      - name: "entityList"
+        in: "path"
+        description: "To request entityList data or not (example: 0 or 1)"
+        required: true
+        type: "string"
       responses:
         "200":
           description: "successful operation"
           schema:
             $ref: "#/definitions/Group"
       security:
-      - api_key: []
-  /Attribute/List/:
+      - bearerAuth: []
+  /AttributeCode/List/:
     get:
       tags:
       - "Attribute"
@@ -225,10 +304,13 @@ paths:
         "200":
           description: "successful operation"
           schema:
-            $ref: "#/definitions/Attribute"
+            type: "array"
+            items:
+              type: "integer"
+              format: "int32"
       security:
-      - api_key: []
-  /Attribute/List/{range}:
+      - bearerAuth: []
+  /AttributeCode/List/{range}:
     get:
       tags:
       - "Attribute"
@@ -242,17 +324,17 @@ paths:
       parameters:
       - name: "range"
         in: "path"
-        description: "range of IDs (example 1-10)"
+        description: "range of IDs (example 1-10) (unrestricted amount of data records/request)"
         required: true
         type: "string"
       responses:
         "200":
           description: "successful operation"
           schema:
-            $ref: "#/definitions/Attribute"
+            $ref: "#/definitions/AttributeCode"
       security:
-      - api_key: []
-  /Attribute/{ID}:
+      - bearerAuth: []
+  /AttributeCode/{ID}:
     get:
       tags:
       - "Attribute"
@@ -274,13 +356,13 @@ paths:
         "200":
           description: "successful operation"
           schema:
-            $ref: "#/definitions/Attribute"
+            $ref: "#/definitions/AttributeCode"
       security:
-      - api_key: []
+      - bearerAuth: []
 securityDefinitions:
-  api_key:
+  bearerAuth:
     type: "apiKey"
-    name: "api_key"
+    name: "bearer"
     in: "header"
 definitions:
   Entity:
@@ -313,8 +395,12 @@ definitions:
         type: "array"
         items:
           properties:
-            attributecode:
-              type: "string"
+            attributeID:
+              type: "integer"
+              format: "int32"
+            attributeCodeID:
+              type: "integer"
+              format: "int32"
             datefrom:
               type: "string"
               format: "datetime"
@@ -377,13 +463,30 @@ definitions:
         items:
           type: "integer"
           format: "int32"
+  AttributeCode:
+    type: "object"
+    properties:
+      attributeCodeID:
+        type: "integer"
+        format: "int32"
+      code:
+        type: "string"
+      description:
+        type: "string"
   Attribute:
     type: "object"
     properties:
       attributeID:
         type: "integer"
         format: "int32"
-      code:
+      attributeCodeID:
+        type: "integer"
+        format: "int32"
+      datefrom:
         type: "string"
-      description:
+        format: "datetime"
+      dateuntil:
+        type: "string"
+        format: "datetime"
+      value:
         type: "string"
