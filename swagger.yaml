@@ -2,24 +2,48 @@ swagger: "2.0"
 info:
   title: "Swagger GashNetPlus"
   version: "1.0.0"
-  description: "This is the GashNetPlus REST API. The basepath URL is unique for each customer and access is restricted with a Token authorisation. Every succesfull request will return data in JSON format."
+  description: "This is the GashNetPlus REST API. The basepath URL is unique for each customer and access is restricted with a Token authorisation. Every succesfull request will return data in JSON format. All query parameters are required but are allowed to be empty."
   contact:
     email: "helpdesk@gashnetplus.be"
 basePath: "/v2"
 schemes:
 - "https"
 paths:
-  /Entity/List/:
+  /Entity/List:
     get:
       tags:
       - "Entity"
-      summary: "Get all possible entity IDs"
+      summary: "Get entity IDs"
       description: ""
       operationId: "GetEntityList"
       consumes:
       - "application/json"
       produces:
       - "application/json"
+      parameters:
+      - name: "dateModified"
+        in: "query"
+        description: "Only return entity IDs where a change was made after the given date (example: 20220101 -> yyyyMMdd)"
+        required: true
+        type: "string"
+        format: "date"
+      - name: "pandStateCodeID"
+        in: "query"
+        description: "Only return entity IDs with this pand state code ID (example: 10)"
+        required: true
+        type: "integer"
+        format: "int32"
+      - name: "attributeCodeID"
+        in: "query"
+        description: "Only return entity IDs with this attribute code ID (example: 10) (combines with attributeValue)"
+        required: true
+        type: "integer"
+        format: "int32"
+      - name: "attributeValue"
+        in: "query"
+        description: "Only return entity IDs with this attribute value (example: 123456789) (combines with attributeValue)"
+        required: true
+        type: "string"
       responses:
         "200":
           description: "successful operation"
@@ -30,11 +54,11 @@ paths:
               format: "int32"
       security:
       - bearerAuth: []
-  /Entity/Range/{range}/{adres}/{state}/{attributes}:
+  /Entity/Range:
     get:
       tags:
       - "Entity"
-      summary: "Get entity data in range (restricted to 10 records/request)"
+      summary: "Get entity data in range (restricted to 100 records/request)"
       description: ""
       operationId: "GetEntityRange"
       consumes:
@@ -43,22 +67,22 @@ paths:
       - "application/json"
       parameters:
       - name: "range"
-        in: "path"
+        in: "query"
         description: "range of IDs (example: 1,2,3,4,5)"
         required: true
         type: "string"
       - name: "adres"
-        in: "path"
+        in: "query"
         description: "To request adres data or not (example: 0 or 1)"
         required: true
         type: "string"
       - name: "state"
-        in: "path"
+        in: "query"
         description: "To request state data or not (example: 0 or 1)"
         required: true
         type: "string"
       - name: "attributes"
-        in: "path"
+        in: "query"
         description: "To request attribute data or not (example: 0 or 1)"
         required: true
         type: "string"
@@ -69,42 +93,24 @@ paths:
             $ref: "#/definitions/Entity"
       security:
       - bearerAuth: []
-  /Entity/Modified/{date}:
-    get:
-      tags:
-      - "Entity"
-      summary: "Get entity data if a change was made after the given date"
-      description: ""
-      operationId: "GetEntityModified"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "date"
-        in: "path"
-        description: "Date (example: 20220101 -> yyyyMMdd)"
-        required: true
-        type: "string"
-        format: "date"
-      responses:
-        "200":
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Entity"
-      security:
-      - bearerAuth: []
-  /Complex/List/:
+  /Complex/List:
     get:
       tags:
       - "Complex"
-      summary: "Get all possible complex IDs"
+      summary: "Get complex IDs"
       description: ""
       operationId: "GetComplexList"
       consumes:
       - "application/json"
       produces:
       - "application/json"
+      parameters:
+      - name: "dateModified"
+        in: "query"
+        description: "Only return complex IDs where a change was made after the given date (example: 20220101 -> yyyyMMdd)"
+        required: true
+        type: "string"
+        format: "date"
       responses:
         "200":
           description: "successful operation"
@@ -115,11 +121,11 @@ paths:
               format: "int32"
       security:
       - bearerAuth: []
-  /Complex/Range/{range}/{adres}/{entityList}:
+  /Complex/Range:
     get:
       tags:
       - "Complex"
-      summary: "Get complex data in range (restricted to 10 records/request)"
+      summary: "Get complex data in range (restricted to 100 records/request)"
       description: ""
       operationId: "GetComplexRange"
       consumes:
@@ -128,17 +134,17 @@ paths:
       - "application/json"
       parameters:
       - name: "range"
-        in: "path"
+        in: "query"
         description: "range of IDs (example: 1,2,3,4,5)"
         required: true
         type: "string"
       - name: "adres"
-        in: "path"
+        in: "query"
         description: "To request adres data or not (example: 0 or 1)"
         required: true
         type: "string"
       - name: "entityList"
-        in: "path"
+        in: "query"
         description: "To request entityList data or not (example: 0 or 1)"
         required: true
         type: "string"
@@ -149,42 +155,24 @@ paths:
             $ref: "#/definitions/Complex"
       security:
       - bearerAuth: []
-  /Complex/Modified/{date}:
-    get:
-      tags:
-      - "Complex"
-      summary: "Get complex data if a change was made after the given date"
-      description: ""
-      operationId: "GetComplexModified"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "date"
-        in: "path"
-        description: "Date (example: 20220101 -> yyyyMMdd)"
-        required: true
-        type: "string"
-        format: "date"
-      responses:
-        "200":
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Complex"
-      security:
-      - bearerAuth: []
-  /Group/List/:
+  /Group/List:
     get:
       tags:
       - "Group"
-      summary: "Get all possible group IDs"
+      summary: "Get group IDs"
       description: ""
       operationId: "GetGroupList"
       consumes:
       - "application/json"
       produces:
       - "application/json"
+      parameters:
+      - name: "dateModified"
+        in: "query"
+        description: "Only return group IDs where a change was made after the given date (example: 20220101 -> yyyyMMdd)"
+        required: true
+        type: "string"
+        format: "date"
       responses:
         "200":
           description: "successful operation"
@@ -195,11 +183,11 @@ paths:
               format: "int32"
       security:
       - bearerAuth: []
-  /Group/Range/{range}/{adres}/{entityList}:
+  /Group/Range:
     get:
       tags:
       - "Group"
-      summary: "Get group data in range (restricted to 10 records/request)"
+      summary: "Get group data in range (restricted to 100 records/request)"
       description: ""
       operationId: "GetGroupListRange"
       consumes:
@@ -208,17 +196,17 @@ paths:
       - "application/json"
       parameters:
       - name: "range"
-        in: "path"
+        in: "query"
         description: "range of IDs (example: 1,2,3,4,5)"
         required: true
         type: "string"
       - name: "adres"
-        in: "path"
+        in: "query"
         description: "To request adres data or not (example: 0 or 1)"
         required: true
         type: "string"
       - name: "entityList"
-        in: "path"
+        in: "query"
         description: "To request entityList data or not (example: 0 or 1)"
         required: true
         type: "string"
@@ -229,36 +217,11 @@ paths:
             $ref: "#/definitions/Group"
       security:
       - bearerAuth: []
-  /Group/Modified/{date}:
+  /PandStatusCode/List:
     get:
       tags:
-      - "Group"
-      summary: "Get group data if a change was made after the given date"
-      description: ""
-      operationId: "GetGroupModified"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "date"
-        in: "path"
-        description: "Date (example: 20220101 -> yyyyMMdd)"
-        required: true
-        type: "string"
-        format: "date"
-      responses:
-        "200":
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Group"
-      security:
-      - bearerAuth: []
-  /AttributeCode/List/:
-    get:
-      tags:
-      - "Attribute"
-      summary: "Get all possible attribute IDs"
+      - "PandStatus Code"
+      summary: "Get all possible pand status IDs"
       description: ""
       operationId: "GetAttributeList"
       consumes:
@@ -275,11 +238,11 @@ paths:
               format: "int32"
       security:
       - bearerAuth: []
-  /AttributeCode/Range/{range}:
+  /PandStatusCode/Range:
     get:
       tags:
-      - "Attribute"
-      summary: "Get attribute data in range (unrestricted amount of data records/request)"
+      - "PandStatus Code"
+      summary: "Get pand status code data in range (unrestricted amount of data records/request)"
       description: ""
       operationId: "GetAttributeRange"
       consumes:
@@ -288,7 +251,52 @@ paths:
       - "application/json"
       parameters:
       - name: "range"
-        in: "path"
+        in: "query"
+        description: "range of IDs (example 1,2,3,4,5)"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/PandStatusCode"
+      security:
+      - bearerAuth: []
+  /AttributeCode/List:
+    get:
+      tags:
+      - "Attribute Code"
+      summary: "Get all possible attribute code IDs"
+      description: ""
+      operationId: "GetAttributeCodeList"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              type: "integer"
+              format: "int32"
+      security:
+      - bearerAuth: []
+  /AttributeCode/Range:
+    get:
+      tags:
+      - "Attribute Code"
+      summary: "Get attribute code data in range (unrestricted amount of data records/request)"
+      description: ""
+      operationId: "GetAttributeCodeRange"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "range"
+        in: "query"
         description: "range of IDs (example 1,2,3,4,5)"
         required: true
         type: "string"
@@ -405,6 +413,16 @@ definitions:
         items:
           type: "integer"
           format: "int32"
+  PandStatusCode:
+    type: "object"
+    properties:
+      pandStatusCodeID:
+        type: "integer"
+        format: "int32"
+      code:
+        type: "string"
+      description:
+        type: "string"
   AttributeCode:
     type: "object"
     properties:
