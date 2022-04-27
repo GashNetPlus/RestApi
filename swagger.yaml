@@ -307,6 +307,488 @@ paths:
             $ref: "#/definitions/AttributeCode"
       security:
       - bearerAuth: []
+  /Kandidaat/GetPuntenscore:
+    get:
+      tags:
+      - "Kandidaat Puntenscore Register"
+      summary: "Get puntenscore"
+      description: ""
+      operationId: "GetPuntenscore"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "registerType"
+        in: "query"
+        description: "As default text use REGISTER_TYPE"
+        required: true
+        type: "string"
+      - name: "registerTypeID"
+        in: "query"
+        description: "Choose RegisterType_ID (example: 1)"
+        required: true
+        type: "integer"
+        format: "int32"
+      - name: "nummerType"
+        in: "query"
+        description: "As default text use DEFINITIEF_NUMMER"
+        required: true
+        type: "string"
+      - name: "nummer"
+        in: "query"
+        description: "Fill in the Definitive number you're looking for"
+        required: true
+        type: "string"
+      - name: "insz"
+        in: "query"
+        description: "Fill in the INSZ-number, existing of 11 numbers (see identity card)"
+        required: true
+        type: "string"
+      - name: "formatted"
+        in: "query"
+        description: "As default use true"
+        required: true
+        type: "boolean"
+      - name: "extraPrioriteit"
+        in: "query"
+        description: "As default use true"
+        required: true
+        type: "boolean"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "integer"
+            items:
+              type: "integer"
+              format: "int32"
+      security:
+      - bearerAuth: []
+  /Kandidaat/GetAnoniemRegister:
+    get:
+      tags:
+      - "Kandidaat Puntenscore Register"
+      summary: "Get anoniem register"
+      description: ""
+      operationId: "GetAnoniemRegister"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "registerType"
+        in: "query"
+        description: "As default text use REGISTER_TYPE"
+        required: true
+        type: "string"
+      - name: "registerTypeID"
+        in: "query"
+        description: "Choose RegisterType_ID (example: 1)"
+        required: true
+        type: "integer"
+        format: "int32"
+      - name: "nummerType"
+        in: "query"
+        description: "As default text use DEFINITIEF_NUMMER"
+        required: true
+        type: "string"
+      - name: "nummer"
+        in: "query"
+        description: "Fill in the Definitive number you're looking for"
+        required: true
+        type: "string"
+      - name: "insz"
+        in: "query"
+        description: "Fill in the INSZ-number, existing of 11 numbers (see identity card)"
+        required: true
+        type: "string"
+      - name: "formatted"
+        in: "query"
+        description: "As default use true"
+        required: true
+        type: "boolean"
+      - name: "extraPrioriteit"
+        in: "query"
+        description: "As default use true"
+        required: true
+        type: "boolean"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "integer"
+            items:
+              type: "integer"
+              format: "int32"
+      security:
+      - bearerAuth: []
+  /Kandidaat/GetActiefRegister:
+    get:
+      tags:
+      - "Kandidaat Puntenscore Register"
+      summary: "Get actief register"
+      description: ""
+      operationId: "GetActiefRegister"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "registerType"
+        in: "query"
+        description: "As default text use REGISTER_TYPE"
+        required: true
+        type: "string"
+      - name: "registerTypeID"
+        in: "query"
+        description: "Choose RegisterType_ID (example: 1)"
+        required: true
+        type: "integer"
+        format: "int32"
+      - name: "nummerType"
+        in: "query"
+        description: "As default text use DEFINITIEF_NUMMER"
+        required: true
+        type: "string"
+      - name: "nummer"
+        in: "query"
+        description: "Fill in the Definitive number you're looking for"
+        required: true
+        type: "string"
+      - name: "insz"
+        in: "query"
+        description: "Fill in the INSZ-number, existing of 11 numbers (see identity card)"
+        required: true
+        type: "string"
+      - name: "formatted"
+        in: "query"
+        description: "As default use true"
+        required: true
+        type: "boolean"
+      - name: "extraPrioriteit"
+        in: "query"
+        description: "As default use true"
+        required: true
+        type: "boolean"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "integer"
+            items:
+              type: "integer"
+              format: "int32"
+      security:
+      - bearerAuth: []
+  /Inwoner/Get/INSZ:
+    get:
+      tags:
+      - "Inwoner"
+      summary: "Get Insz number from inwoner"
+      description: ""
+      operationId: "GetINSZ"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "insz"
+        in: "query"
+        description: "Fill in the INSZ-number, existing of 11 numbers (see identity card)"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+               $ref: '#/definitions/Inwoner'
+      security:
+      - bearerAuth: []
+  /Inwoner/AanmakenKandidaat:
+    post:
+      tags:
+      - "Kandidaat Inschrijving"
+      summary: "Create candidate for subscription"
+      description: ""
+      operationId: "AanmakenKandidaat"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "KandidaatInschrijving"
+        in: "body"
+        description: "A candidate object to send with inwoners"
+        required: true
+        schema:
+            type: "object"
+            properties:
+              Naam:
+                type: "string"
+              Straat:
+                type: "string"
+              HuisNr:
+                type: "string"
+              BusNr:
+                type: "string"
+              Gemeente:
+                type: "string"
+              EmailAdres:
+                type: "string"
+              TelefoonNr:
+                type: "string"
+              GSMNr:
+                type: "string"
+              INSZ:
+                type: "string"
+              BesteedbaarInkomen:
+                type: "string"
+              Inwoners:
+                type: "array"
+                items:
+                   $ref: '#/definitions/InwonerInschrijving'
+              Opmerking:
+                type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+      security:
+      - bearerAuth: []
+  /Inwoner/GetKandidaatAttesten:
+    get:
+      tags:
+      - "Kandidaat Inschrijving"
+      summary: "Get attesten"
+      description: ""
+      operationId: "GetKandidaatAttesten"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "RegisterType"
+        in: "query"
+        description: "Fill in the registertype (example: 1)"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items: 
+              $ref: '#/definitions/AttestType'
+      security:
+      - bearerAuth: []
+  /Inwoner/ToevoegenKandidaatAttest:
+    post:
+      tags:
+      - "Kandidaat Inschrijving"
+      summary: "Add attest"
+      description: ""
+      operationId: "ToevoegenKandidaatAttest"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "KandidaatAttest"
+        in: "body"
+        description: "a candidate attest to send from a candidate with file/image"
+        required: true
+        schema:
+            properties:
+              sources:
+                type: "array"
+                items:
+                   $ref: '#/definitions/KandidaatAttest'
+      responses:
+        "200":
+          description: "successful operation"
+      security:
+      - bearerAuth: []  
+  /Inwoner/GetWoningKeuzes:
+    get:
+      tags:
+      - "Kandidaat Inschrijving"
+      summary: "Get woningkeuzes"
+      description: ""
+      operationId: "GetWoningKeuzes"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+               $ref: '#/definitions/WoningKeuze'
+      security:
+      - bearerAuth: []
+  /Inwoner/SaveWoningKeuzes:
+    post:
+      tags:
+      - "Kandidaat Inschrijving"
+      summary: "Save woningkeuzes"
+      description: ""
+      operationId: "SaveWoningKeuzes"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "woningKeuzes"
+        in: "body"
+        description: "List of woningkeuze objects (with id, description and sometimes value)"
+        required: true
+        schema:
+            properties:
+              sources:
+                type: "array"
+                items:
+                   $ref: '#/definitions/WoningKeuze'
+      responses:
+        "200":
+          description: "successful operation"
+      security:
+      - bearerAuth: []
+  /Inwoner/GetContactRelatie:
+    get:
+      tags:
+      - "Inwoner"
+      summary: "Get reference candidate/tenant for inwoner"
+      description: ""
+      operationId: "GetContactRelatie"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "naam"
+        in: "query"
+        description: "Fill in the name"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "integer"
+      security:
+      - bearerAuth: []
+  /Komplex/GetKeuzeGemeentes:
+    get:
+      tags:
+      - "Kandidaat Inschrijving"
+      summary: "Get keuzegemeentes"
+      description: ""
+      operationId: "GetKeuzeGemeentes"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+               $ref: '#/definitions/Gemeente'
+      security:
+      - bearerAuth: []
+  /Komplex/GetKandidaatKomplexKeuzes:
+    get:
+      tags:
+      - "Kandidaat Inschrijving"
+      summary: "Get kandidaat komplexkeuzes"
+      description: ""
+      operationId: "GetKandidaatKomplexKeuzes"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "aantalInwoners"
+        in: "query"
+        description: "Fill in amount of inwoners"
+        required: true
+        type: "integer"
+      - name: "RegisterType"
+        in: "query"
+        description: "Fill in the registertype"
+        required: true
+        type: "integer"
+      - name: "gemeentes"
+        in: "query"
+        description: "Fill in preferred gemeentes separated by comma, (Default: '')"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+               $ref: '#/definitions/Komplex'
+      security:
+      - bearerAuth: []
+  /Komplex/SaveKandidaatKomplexKeuzes:
+    post:
+      tags:
+      - "Kandidaat Inschrijving"
+      summary: "Save kandidaat komplexkeuzes"
+      description: ""
+      operationId: "SaveKandidaatKomplexKeuzes"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "komplexKeuzes"
+        in: "body"
+        description: "List of komplexkeuze objects (with id, slaapkamers, etc...)"
+        required: true
+        schema:
+            properties:
+              sources:
+                type: "array"
+                items:
+                  $ref: '#/definitions/KomplexKeuze'
+      responses:
+        "200":
+          description: "successful operation"
+      security:
+      - bearerAuth: []
+  /Panden/Aantal:
+    get:
+      tags:
+      - "Kandidaat Inschrijving"
+      summary: "Get patrimonium aantal based on given data"
+      description: ""
+      operationId: "Aantal"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "data"
+        in: "query"
+        description: "data containing komplexID, slaapkamers en pandType (example: '2-2-APPARTEMENT')"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "integer"
+      security:
+      - bearerAuth: []
+      
 securityDefinitions:
   bearerAuth:
     type: "apiKey"
@@ -450,3 +932,146 @@ definitions:
         format: "datetime"
       value:
         type: "string"
+  Puntenscore_Anoniem_En_Actief_Register:
+    type: "object"
+    properties:
+      registerType:
+        type: "string"
+      registerTypeID:
+        type: "string"
+      nummerType:
+        type: "string"
+      nummer:
+        type: "string"
+      insz:
+        type: "string"
+      formatted:
+        type: "string"
+      extraPrioriteit:
+        type: "boolean"
+  KandidaatInschrijving:
+    type: "object"
+    properties:
+      Naam:
+        type: "string"
+      Straat:
+        type: "string"
+      HuisNr:
+        type: "string"
+      BusNr:
+        type: "string"
+      Gemeente:
+        type: "string"
+      EmailAdres:
+        type: "string"
+      TelefoonNr:
+        type: "string"
+      GSMNr:
+        type: "string"
+      INSZ:
+        type: "string"
+      BesteedbaarInkomen:
+        type: "string"
+      Inwoners:
+        type: "array"
+        items:
+           $ref: '#/definitions/InwonerInschrijving'
+      Opmerking:
+        type: "string"
+  InwonerInschrijving:
+    type: "object"
+    properties:
+      Naam:
+        type: "string"
+      INSZ:
+        type: "string"
+      BesteedbaarInkomen:
+        type: "string"
+  Inwoner:
+    type: "object"
+    properties:
+      Naam:
+        type: "string"
+      INSZ_Nummer:
+        type: "string"
+      Geslacht:
+        type: "string"
+      GeboorteDatum:
+        type: "string"
+      RelatieType:
+        type: "string"
+  KandidaatAttest:
+    type: "object"
+    properties:
+      Attest_Type_ID:
+        type: "integer"
+      Contact_Relatie_ID:
+        type: "integer"
+      BestandNaam:
+        type: "string"
+      Bestand:
+        type: "string"
+      OK: 
+        type: "boolean"
+  AttestType:
+    type: "object"
+    properties:
+      ID:
+        type: "integer"
+      Omschrijving:
+        type: "string"
+  ContactRelatieWoningKeuze:
+    type: "object"
+    properties:
+      Woning_Keuze_ID:
+        type: "integer"
+      Contact_Relatie_ID:
+        type: "integer"
+      Waarde:
+        type: "string"
+  WoningKeuze:
+    type: "object"
+    properties:
+      ID:
+        type: "integer"
+      Omschrijving:
+        type: "string"
+      WaardeInGebruik:
+        type: "boolean"
+  Gemeente:
+    type: "object"
+    properties:
+      Gemeente_ID:
+        type: "integer"
+      Code:
+        type: "string"
+      Omschrijving:
+        type: "string"
+  Komplex:
+    type: "object"
+    properties:
+      Komplex_ID:
+        type: "integer"
+      Kode:
+        type: "string"
+      Omschrijving:
+        type: "string"
+      Type_ID:
+        type: "integer"
+      Type:
+        type: "string"
+      Slaapkamers:
+        type: "integer"
+      AantalVerhuurbarePanden:
+        type: "integer"
+  KomplexKeuze:
+    type: "object"
+    properties:
+      Komplex_ID:
+        type: "integer"
+      Pand_Type_ID:
+        type: "integer"
+      Slaapkamers:
+        type: "integer"
+      Contact_Relatie_ID:
+        type: "integer"        
