@@ -788,7 +788,121 @@ paths:
             type: "integer"
       security:
       - bearerAuth: []
-      
+  /GeoMap/GetKomplexen:
+    get:
+      tags:
+      - "Patrimonium GeoMap"
+      summary: "Get Komplexen"
+      description: ""
+      operationId: "GetKomplexen"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+               $ref: '#/definitions/GeoMap'
+      security:
+      - bearerAuth: []
+  /GeoMap/GetPatrimoniumGroepen:
+    get:
+      tags:
+      - "Patrimonium GeoMap"
+      summary: "Get Patrimoniumgroepen"
+      description: ""
+      operationId: "GetPatrimoniumGroepen"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+               $ref: '#/definitions/GeoMap'
+      security:
+      - bearerAuth: []
+  /GeoMap/GetPandenInfo:
+    get:
+      tags:
+      - "Patrimonium PandenInfo"
+      summary: "Get Patrimonium komplex panden informatie"
+      description: ""
+      operationId: "GetPandenInfo"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "komplex_ID"
+        in: "query"
+        description: "Fill in the desired komplex (example: 1)"
+        required: true
+        type: "integer"
+      - name: "websiteMap"
+        in: "query"
+        description: "Fill in the baseUrl, use '|' for drive - and map-separation (example: C|Git|Gashnetplus|App)"
+        required: true
+        type: "string" 
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+               $ref: '#/definitions/KomplexPandenInfoRecord'
+      security:
+      - bearerAuth: [] 
+  /BedrijfWebLogging/PostLogging:
+    post:
+      tags:
+      - "BedrijfWebsite Melding Registratie"
+      summary: "Registreer een nieuwe melding via de website"
+      description: ""
+      operationId: "PostMeldingLogging"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "BedrijfWebLogging"
+        in: "body"
+        description: "An object that has basic information like name, email, address, etc... with possible image/file attached"
+        required: true
+        schema:
+            type: "object"
+            properties:
+              Soort:
+                type: "string"
+              Omschrijving:
+                type: "string"
+              Naam:
+                type: "string"
+              TelGsmNr:
+                type: "string"
+              Email:
+                type: "string"
+              Adres:
+                type: "string"
+              Woonplaats:
+                type: "string"
+              Bestanden:
+                type: "array"
+                items:
+                   $ref: '#/definitions/Bestand'
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "boolean"
+      security:
+      - bearerAuth: []
 securityDefinitions:
   bearerAuth:
     type: "apiKey"
@@ -1074,4 +1188,107 @@ definitions:
       Slaapkamers:
         type: "integer"
       Contact_Relatie_ID:
-        type: "integer"        
+        type: "integer" 
+  GeoMap:
+    type: "object"
+    properties:
+      ID:
+        type: "integer"
+      Code:
+        type: "string"
+      Omschrijving:
+        type: "string"
+      KeuzeGebied:
+        type: "string"
+      Panden:
+        type: "array"
+        items:
+           $ref: '#/definitions/PandGeoMap'
+      Straat:
+        type: "string"
+      HuisNr:
+        type: "string"
+      BusNr:
+        type: "string"
+      PostCode:
+        type: "string" 
+      Gemeente:
+        type: "string"
+      Kleur:
+        type: "string"
+      Latitude:
+        type: "number"
+        format: "double"
+      Longitude:
+        type: "number"
+        format: "double"
+  PandGeoMap:
+    type: "object"
+    properties:
+      ID:
+        type: "integer"
+      NrIntern:
+        type: "string"
+      Straat:
+        type: "string"
+      HuisNr:
+        type: "string"
+      BusNr:
+        type: "string"
+      PostCode:
+        type: "string" 
+      Gemeente:
+        type: "string"
+      PandType:
+        type: "string"
+      Verdieping:
+        type: "string"
+      Slaapkamers:
+        type: "integer"
+      LiftAanwezig:
+        type: "boolean"
+      DoelgroepOuderenVrbeh:
+        type: "boolean"
+      DoelgroepAangepastRolstoelVrbeh:
+        type: "boolean"
+      Latitude:
+        type: "number"
+        format: "double"
+      Longitude:
+        type: "number"
+        format: "double"
+  KomplexPandenInfoRecord:
+      type: "object"
+      properties:
+        Komplex_ID:
+          type: "integer"
+        Komplex:
+          type: "string"
+        Pand_ID:
+          type: "integer"
+        PandNr:
+          type: "string"
+        PandAdres:
+          type: "string"
+        Kenmerken:
+          type: "array"
+          items:
+           type: "object"
+        PandType:
+          type: "string"
+        AantalSlaapKamers:
+          type: "string"
+        VerhuringsStelsel:
+          type: "string"
+        PandFotos:
+          type: "array"  
+          items:
+           type: "string"
+           format: "byte"
+  Bestand:
+      type: "object"
+      properties:
+        BestandNaam:
+          type: "string"
+        Bestand:
+          type: "string"
