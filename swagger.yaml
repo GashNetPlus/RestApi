@@ -86,6 +86,11 @@ paths:
         description: "To request attribute data or not (example: 0 or 1)"
         required: true
         type: "string"
+      - name: "rights"
+        in: "query"
+        description: "To request owner rights data or not (example: 0 or 1)"
+        required: true
+        type: "string"
       responses:
         "200":
           description: "successful operation"
@@ -241,8 +246,8 @@ paths:
   /PandStatusCode/Range:
     get:
       tags:
-      - "PandStatus Code"
-      summary: "Get pand status code data in range (unrestricted amount of data records/request)"
+      - "Recht Code"
+      summary: "Get Recht code data in range (unrestricted amount of data records/request)"
       description: ""
       operationId: "GetAttributeRange"
       consumes:
@@ -259,9 +264,54 @@ paths:
         "200":
           description: "successful operation"
           schema:
-            $ref: "#/definitions/PandStatusCode"
+            $ref: "#/definitions/RechtCode"
       security:
       - bearerAuth: []
+  /RechtCode/List:
+    get:
+        tags:
+        - "Recht Code"
+        summary: "Get all possible Recht Code IDs"
+        description: ""
+        operationId: "GetAttributeList"
+        consumes:
+        - "application/json"
+        produces:
+        - "application/json"
+        responses:
+          "200":
+            description: "successful operation"
+            schema:
+              type: "array"
+              items:
+                type: "integer"
+                format: "int32"
+        security:
+        - bearerAuth: []
+  /RechtCode/Range:
+    get:
+        tags:
+        - "PandStatus Code"
+        summary: "Get pand status code data in range (unrestricted amount of data records/request)"
+        description: ""
+        operationId: "GetAttributeRange"
+        consumes:
+        - "application/json"
+        produces:
+        - "application/json"
+        parameters:
+        - name: "range"
+          in: "query"
+          description: "range of IDs (example 1,2,3,4,5)"
+          required: true
+          type: "string"
+        responses:
+          "200":
+            description: "successful operation"
+            schema:
+              $ref: "#/definitions/PandStatusCode"
+        security:
+        - bearerAuth: []
   /AttributeCode/List:
     get:
       tags:
@@ -955,33 +1005,142 @@ definitions:
               format: "datetime"
             value:
               type: "string"
-  Complex:
-    type: "object"
-    properties:
-      complexID:
-        type: "integer"
-        format: "int32"
-      code:
-        type: "string"
-      description:
-        type: "string"
-      countrycode:
-        type: "string"
-      postalcode:
-        type: "string"
-      county:
-        type: "string"
-      street:
-        type: "string"
-      housenumber:
-        type: "string"
-      boxnumber:
-        type: "string"
-      entityIDList:
+      rightList:
         type: "array"
         items:
+          properties:
+            description:
+              type: "string"
+            dateFrom:
+              type: "string"
+              format: "datetime"
+            dateUntil:
+              type: "string"
+              format: "datetime"
+            rechtCodeID:
+              type: "integer"
+              format: "int32"
+            ratioNumerator:
+              type: "integer"
+              format: "int32"
+            ratioDenominator: 
+              type: "integer"
+              format: "int32"
+            ratio:
+              type: "number"
+              format: "float"
+            type: 
+              type: "string"
+      tenants:
+        type: "array"
+        items:
+          properties:
+            dateFrom:
+              type: "string"
+              format: "datetime"
+            dateUntil:
+              type: "string"
+              format: "datetime"
+            pandStateCodeID:
+              type: "integer"
+              format: "int32"
+            type:
+              type: "string"
+            rightList:
+              type: "array"
+              items:
+                properties:
+                  description:
+                    type: "string"
+                  dateFrom:
+                    type: "string"
+                    format: "datetime"
+                  dateUntil:
+                    type: "string"
+                    format: "datetime"
+                  rechtCodeID:
+                    type: "integer"
+                    format: "int32"
+                  ratioNumerator:
+                    type: "integer"
+                    format: "int32"
+                  ratioDenominator: 
+                    type: "integer"
+                    format: "int32"
+                  ratio:
+                    type: "number"
+                    format: "float"
+                  type: 
+                    type: "string"
+      owners:
+        type: "array"
+        items: 
+          properties:
+            dateFrom:
+              type: "string"
+              format: "datetime"
+            dateUntil:
+              type: "string"
+              format: "datetime"
+            pandStateCodeID:
+              type: "integer"
+              format: "int32"
+            type:
+              type: "string"
+            rightList:
+              type: "array"
+              items:
+                properties:
+                  description:
+                    type: "string"
+                  dateFrom:
+                    type: "string"
+                    format: "datetime"
+                  dateUntil:
+                    type: "string"
+                    format: "datetime"
+                  rechtCodeID:
+                    type: "integer"
+                    format: "int32"
+                  ratioNumerator:
+                    type: "integer"
+                    format: "int32"
+                  ratioDenominator: 
+                    type: "integer"
+                    format: "int32"
+                  ratio:
+                    type: "number"
+                    format: "float"
+                  type: 
+                    type: "string"
+  Complex:
+    type: "object"
+    items: 
+      properties:
+        complexID:
           type: "integer"
           format: "int32"
+        code:
+          type: "string"
+        description:
+          type: "string"
+        countrycode:
+          type: "string"
+        postalcode:
+          type: "string"
+        county:
+          type: "string"
+        street:
+          type: "string"
+        housenumber:
+          type: "string"
+        boxnumber:
+          type: "string"
+        entityIDList:
+          type: "array"
+          items:
+            type: "integer"
+            format: "int32"
   Group:
     type: "object"
     properties:
