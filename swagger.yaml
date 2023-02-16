@@ -983,6 +983,8 @@ definitions:
         type: "string"
       structure:
         type: "string"
+      subtype:
+        type: "string"
       lease:
         type: "string"
       status:
