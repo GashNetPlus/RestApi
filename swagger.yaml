@@ -1031,6 +1031,47 @@ definitions:
               format: "float"
             type: 
               type: "string"
+      company:
+        type: "array"
+        items:
+          properties:
+            dateFrom:
+              type: "string"
+              format: "datetime"
+            dateUntil:
+              type: "string"
+              format: "datetime"
+            pandStateCodeID:
+              type: "integer"
+              format: "int32"
+            type:
+              type: "string"
+            rightList:
+              type: "array"
+              items:
+                properties:
+                  description:
+                    type: "string"
+                  dateFrom:
+                    type: "string"
+                    format: "datetime"
+                  dateUntil:
+                    type: "string"
+                    format: "datetime"
+                  rechtCodeID:
+                    type: "integer"
+                    format: "int32"
+                  ratioNumerator:
+                    type: "integer"
+                    format: "int32"
+                  ratioDenominator: 
+                    type: "integer"
+                    format: "int32"
+                  ratio:
+                    type: "number"
+                    format: "float"
+                  type: 
+                    type: "string"
       tenants:
         type: "array"
         items:
@@ -1076,6 +1117,10 @@ definitions:
         type: "array"
         items: 
           properties:
+            name:
+              type: "string"
+            companyNumber:
+              type: "string"
             dateFrom:
               type: "string"
               format: "datetime"
