@@ -987,6 +987,10 @@ definitions:
         type: "string"
       lease:
         type: "string"
+      entityPath:
+        type: "string"
+      deleted:
+        type: "boolean"
       status:
         type: "string"
       attributeList:
