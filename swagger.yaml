@@ -1229,6 +1229,8 @@ definitions:
         type: "string"
       description:
         type: "string"
+      isActive:
+        type: "boolean"
   AttributeCode:
     type: "object"
     properties:
