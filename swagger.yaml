@@ -1043,6 +1043,10 @@ definitions:
         type: "array"
         items:
           properties:
+            name:
+              type: "string"
+            companyNumber:
+              type: "string"
             dateFrom:
               type: "string"
               format: "datetime"
@@ -1084,6 +1088,10 @@ definitions:
         type: "array"
         items:
           properties:
+            name:
+              type: "string"
+            companyNumber:
+              type: "string"
             dateFrom:
               type: "string"
               format: "datetime"
