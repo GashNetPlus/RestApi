@@ -1235,6 +1235,8 @@ definitions:
       pandStatusCodeID:
         type: "integer"
         format: "int32"
+      type:
+        type: "string"
       code:
         type: "string"
       description:
